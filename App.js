@@ -9,7 +9,7 @@ import TrackCreateScreen from './src/screens/track_create';
 import TrackDetailsScreen from './src/screens/track_detail';
 import TrackListScreen from './src/screens/track_list';
 import { Provider as AuthProvider } from './src/context/auth_context';
-
+import { setNavigator } from './src/helper_functions/navigation_ref';
 
 
 const switchNavigator = createSwitchNavigator({
@@ -32,7 +32,9 @@ const App = createAppContainer(switchNavigator);
 export default () => {
   return (
     <AuthProvider>
-      <App />
+      <App ref = {navigator => {
+        setNavigator(navigator);
+      }}/>
     </AuthProvider>
   );
 };
