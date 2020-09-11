@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useCallback } from "react";
 import { View, StyleSheet } from "react-native";
-import { SafeAreaView } from "react-navigation";
+import { SafeAreaView, withNavigationFocus } from "react-navigation";
 import { Text } from "react-native-elements";
 import Map from "../components/map";
 import {
@@ -9,45 +9,43 @@ import {
 	Accuracy,
 } from "expo-location";
 import "../helper_functions/_mockLocation";
+import { Context as LocationContext } from "../context/location_context";
+import useLocation from "../hooks/use_location";
+import TrackForm from "../components/track_form";
+import { FontAwesome } from "@expo/vector-icons";
 
-const TrackCreateScreen = () => {
-	const [err, setErr] = useState(null);
-
-	const startWatching = async () => {
-		try {
-			await requestPermissionsAsync();
-			await watchPositionAsync(
-				{
-					accuracy: Accuracy.BestForNavigation,
-					timeInterval: 1000,
-					distanceInterval: 10,
-				},
-				(location) => {
-					console.log(location);
-				}
-			);
-		} catch (e) {
-			setErr(e);
-		}
-	};
-
-	useEffect(() => {
-		startWatching();
-	}, []);
+const TrackCreateScreen = ({ isFocused }) => {
+	const {
+		state: { recording },
+		addLocation,
+	} = useContext(LocationContext);
+	const callback = useCallback(
+		(location) => {
+			addLocation(location, recording);
+		},
+		[recording]
+	);
+	const [err] = useLocation(isFocused || recording, callback);
 
 	return (
 		<SafeAreaView forceInset={{ top: "always" }}>
 			<Text h2>Create a Create</Text>
 			<Map />
+
 			{err ? (
 				<Text style={{ color: "red", fontSize: 20.0 }}>
 					Please enable Location Services
 				</Text>
 			) : null}
+			<TrackForm />
 		</SafeAreaView>
 	);
+};
+TrackCreateScreen.navigationOptions = {
+	title: "Add Track",
+	tabBarIcon: <FontAwesome name="plus" size={20} />,
 };
 
 const styles = StyleSheet.create({});
 
-export default TrackCreateScreen;
+export default withNavigationFocus(TrackCreateScreen);
