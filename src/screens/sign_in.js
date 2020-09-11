@@ -1,7 +1,5 @@
 import React, { useState, useContext } from "react";
 import { View, StyleSheet } from "react-native";
-import { Text, Input, Button } from "react-native-elements";
-import Spacer from "../components/spacer";
 import { NavigationEvents } from "react-navigation";
 import { Context } from "../context/auth_context";
 import AuthForm from "../components/auth_form";
@@ -12,7 +10,7 @@ const SignInScreen = () => {
 
 	return (
 		<View style={styles.container}>
-			{/* <NavigationEvents onWillBlur={clearErrorMessage} /> */}
+			<NavigationEvents onWillBlur={clearErrorMessage} />
 			<AuthForm
 				headerText="Sign In"
 				errorMessage={state.errorMessage}

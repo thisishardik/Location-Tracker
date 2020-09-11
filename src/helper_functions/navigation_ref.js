@@ -1,16 +1,15 @@
-import { NavigationActions } from 'react-navigation';
+import { NavigationActions } from "react-navigation";
 
 let navigator;
 
 export const setNavigator = (nav) => {
-    navigator = nav;
+	navigator = nav;
 };
 
-export const navigate = (routeName, params) => {
-    navigator.dispatch(
-        NavigationActions.navigate({
-            routeName: routeName,
-            params: params,
-        })
-    );
+export const navigate = (routeName) => {
+	navigator.dispatch(
+		NavigationActions.navigate({
+			routeName: routeName,
+		})
+	);
 };
