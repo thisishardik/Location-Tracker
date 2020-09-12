@@ -13,7 +13,11 @@ const TrackDetailsScreen = ({ navigation }) => {
 
 	return (
 		<>
-			<Text style={{ fontSize: 48 }}>{track.name}</Text>
+			<View style={{ padding: 20.0, alignSelf: "center" }}>
+				<Text style={{ fontWeight: "600", fontSize: 30 }}>
+					Your Track
+				</Text>
+			</View>
 			<MapView
 				initialRegion={{
 					longitudeDelta: 0.01,
@@ -23,16 +27,21 @@ const TrackDetailsScreen = ({ navigation }) => {
 				style={styles.map}
 			>
 				<Polyline
+					strokeColor="blue"
+					strokeWidth={2.5}
 					coordinates={track.locations.map((loc) => loc.coords)}
 				/>
 			</MapView>
+			<Text style={{ padding: 15.0, alignSelf: "center", fontSize: 35 }}>
+				{track.name}
+			</Text>
 		</>
 	);
 };
 
 const styles = StyleSheet.create({
 	map: {
-		height: 300,
+		height: 430,
 	},
 });
 

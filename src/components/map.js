@@ -15,8 +15,6 @@ const Map = () => {
 	return (
 		<MapView
 			showsCompass={true}
-			showsMyLocationButton={true}
-			zoomControlEnabled={true}
 			toolbarEnabled={true}
 			style={styles.map}
 			initialRegion={{
@@ -37,14 +35,18 @@ const Map = () => {
 				strokeColor="rgba(158,158,255,1.0)"
 				fillColor="rgba(158,158,255,0.3)"
 			/>
-			<Polyline coordinates={locations.map((loc) => loc.coords)} />
+			<Polyline
+				strokeColor="blue"
+				strokeWidth={2.5}
+				coordinates={locations.map((loc) => loc.coords)}
+			/>
 		</MapView>
 	);
 };
 
 const styles = StyleSheet.create({
 	map: {
-		height: 300.0,
+		height: 400.0,
 	},
 });
 

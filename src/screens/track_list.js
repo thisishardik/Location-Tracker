@@ -11,6 +11,7 @@ import { Context as TrackContext } from "../context/track_context";
 import { ListItem } from "react-native-elements";
 import MapView, { Polyline } from "react-native-maps";
 import { NavigationEvents } from "react-navigation";
+import { AntDesign } from "@expo/vector-icons";
 
 const TrackListScreen = ({ navigation }) => {
 	const { state, fetchTracks } = useContext(TrackContext);
@@ -30,7 +31,24 @@ const TrackListScreen = ({ navigation }) => {
 								})
 							}
 						>
-							<ListItem chevron title={item.name} />
+							<View
+								style={{
+									paddingLeft: 15.0,
+									paddingRight: 15.0,
+									paddingTop: 15.0,
+								}}
+							>
+								<ListItem
+									rightIcon={
+										<AntDesign
+											name="right"
+											size={20}
+											color="black"
+										/>
+									}
+									title={item.name}
+								/>
+							</View>
 						</TouchableOpacity>
 					);
 				}}
